@@ -6,7 +6,24 @@
 
 使用Clojure实现,暂时没有提供Java的Wrapper
 
-BUG较多,没有做充分测试,慎用慎用
+## Install
+
+Leiningen
+
+    [any-route "0.1.1"]
+
+Gradle
+
+    compile "any-route:any-route:0.1.1"
+
+Maven
+
+    <dependency>
+      <groupId>any-route</groupId>
+      <artifactId>any-route</artifactId>
+      <version>0.1.1</version>
+    </dependency>
+
 
 ## Usage
 

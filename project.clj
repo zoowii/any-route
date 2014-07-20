@@ -1,4 +1,4 @@
-(defproject any-route "0.1.1"
+(defproject any-route "0.1.2"
   :description "a route and reverse route library"
   :url "https://github.com/zoowii/any-route"
   :license {:name "Eclipse Public License"

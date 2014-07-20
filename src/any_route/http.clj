@@ -64,16 +64,40 @@
     (rm-http-method-prefix reverse-result)))
 
 (defn GET
-  [pattern handler route-name]
-  (http-route :GET pattern handler route-name))
+  ([pattern handler]
+   (http-route :GET pattern handler))
+  ([pattern handler route-name]
+   (http-route :GET pattern handler route-name)))
 
 (defn POST
-  [pattern handler route-name]
-  (http-route :POST pattern handler route-name))
+  ([pattern handler]
+   (http-route :POST pattern handler))
+  ([pattern handler route-name]
+   (http-route :POST pattern handler route-name)))
+
+(defn HEAD
+  ([pattern handler]
+   (http-route :HEAD pattern handler))
+  ([pattern handler route-name]
+   (http-route :HEAD pattern handler route-name)))
+
+(defn PUT
+  ([pattern handler]
+   (http-route :PUT pattern handler))
+  ([pattern handler route-name]
+   (http-route :PUT pattern handler route-name)))
+
+(defn DELETE
+  ([pattern handler]
+   (http-route :DELETE pattern handler))
+  ([pattern handler route-name]
+   (http-route :DELETE pattern handler route-name)))
 
 (defn ANY
-  [pattern handler route-name]
-  (http-route :ANY pattern handler route-name))
+  ([pattern handler]
+   (http-route :ANY pattern handler))
+  ([pattern handler route-name]
+   (http-route :ANY pattern handler route-name)))
 
 (defmacro defroutes
   "定义路由表"
