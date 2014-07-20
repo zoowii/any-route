@@ -16,7 +16,7 @@
 (defn http-route
   "建立http的route表. 如果method使用:ANY,则映射到所有已知http method"
   ([method route-str handler]
-   (http-route method route-str handler nil))
+   (http-route method route-str handler (str "annoy_route_" (rand))))
   ([method route-str handler route-name]
    (if (= (str-http-method method) "ANY")
      (context-route
@@ -62,3 +62,29 @@
                                         [route-table name find-route-in-http-route-table]
                                         params))]
     (rm-http-method-prefix reverse-result)))
+
+(defn GET
+  [pattern handler route-name]
+  (http-route :GET pattern handler route-name))
+
+(defn POST
+  [pattern handler route-name]
+  (http-route :POST pattern handler route-name))
+
+(defn ANY
+  [pattern handler route-name]
+  (http-route :ANY pattern handler route-name))
+
+(defmacro defroutes
+  "定义路由表"
+  [name & body]
+  `(def ~name (, make-route-table [~@body])))
+
+(defn url-for
+  "方便的路由反转"
+  [routes-table route-name params]
+  (apply reverse-in-http-route-table (cons routes-table (cons route-name (vec params)))))
+
+(def find-route http-route-table-match)
+
+(def context context-route)

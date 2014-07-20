@@ -1,6 +1,6 @@
 # any-route
 
-一个简单的双向路由库(路由 <=> handler + params的双射),主要可以用于Java/Clojure的Web应用的路由基础,也可以独立使用(对,又是一个轮子)
+一个简单的双向路由库(路由 <=> handler + params的双射),主要可以用于Java/Clojure的Web应用的路由基础,也可以独立使用
 
 提供了基本的路由core和http封装
 
@@ -36,17 +36,14 @@ BUG较多,没有做充分测试,慎用慎用
 
 
     ;; 以下是http的封装的例子(多一个根据http method进行路由的功能,如果要匹配多种method,使用:ANY)
-    (def http-rtbl
-      (make-route-table
-        [
-          (http-route :GET
-                      "/test/:id/update" "test_handler" "test")
-          (context-route
-            "/user"
-            [(http-route
-               :GET "/:id/view/:project/:*path" "view_user_handler" "view_user")
-             (http-route
-               :POST "/:id/view/:project/:*path" "update_user_handler" "update_user")])]))
+    (def user-http-routes
+      [(GET "/:id/view/:project/:*path" "view_user_handler" "view_user")
+       (POST "/:id/view/:project/:*path" "update_user_handler" "update_user")])
+
+    (defroutes http-rtbl
+               (GET "/test/:id/update" "test_handler" "test")
+               (context "/user" user-http-routes))
+
     (println http-rtbl)
     (println (find-route-in-http-route-table http-rtbl "update_user"))
 

@@ -24,19 +24,14 @@
 (println (reverse-in-route-table
            rtbl "view_user" "433" "test-project" "github.com/zoowii"))
 
+(def user-http-routes
+  [(GET "/:id/view/:project/:*path" "view_user_handler" "view_user")
+   (POST "/:id/view/:project/:*path" "update_user_handler" "update_user")])
 
-;; 以下是http的封装的例子(多一个根据http method进行路由的功能,如果要匹配多种method,使用:ANY)
-(def http-rtbl
-  (make-route-table
-    [
-      (http-route :GET
-                  "/test/:id/update" "test_handler" "test")
-      (context-route
-        "/user"
-        [(http-route
-           :GET "/:id/view/:project/:*path" "view_user_handler" "view_user")
-         (http-route
-           :POST "/:id/view/:project/:*path" "update_user_handler" "update_user")])]))
+(defroutes http-rtbl
+           (GET "/test/:id/update" "test_handler" "test")
+           (context "/user" user-http-routes))
+
 (println http-rtbl)
 (println (find-route-in-http-route-table http-rtbl "update_user"))
 
